@@ -16,6 +16,7 @@ pygame.display.set_caption('Jogo de Damas')
 imagem = pygame.image.load('DAMAS.jpg') 
 janela.blit(imagem, (0, 0))
 
+#dflknsrlkgnlfb
 
 pygame.display.update()
 
