@@ -5,17 +5,16 @@ PRETO = (0, 0, 0)
 BRANCO = (255, 255, 255)
 VERMELHO = (255, 0, 0)
 VERMELHO_ESCURO = (145,0,0)    #NÃO SEI SE FICOU UMA COR LEGAL
+MARROM = (92,64,51)
 
 #iniciando os módulos do pygame
 pygame.init()
-janela = pygame.display.set_mode((800, 600))
+janela = pygame.display.set_mode((960,720))
 pygame.display.set_caption('Jogo de Damas')
 
-#página inicial (desenhos)
-janela.fill(PRETO)  #fundo preto
-fonte = pygame.font.Font('freesansbold.ttf', 48)  #NÃO SEI SE FICOU UMA FONTE LEGAL
-texto = fonte.render("DAMAS", True, VERMELHO_ESCURO)
-janela.blit(texto, [30, 150])
+#imagem na página inicial
+imagem = pygame.image.load('DAMAS.jpg') 
+janela.blit(imagem, (0, 0))
 
 
 pygame.display.update()
