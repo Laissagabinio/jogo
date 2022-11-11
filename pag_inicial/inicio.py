@@ -31,14 +31,15 @@ def textos(texto, font, color):
 def criar_botao(texto, retangulo, VERMELHO_ESCURO, VERMELHOR_SOMBRA, BRANCO, acao=None):
 	mouse = pygame.mouse.get_pos()
 	clique = pygame.mouse.get_pressed()
-
+	raio_borda = 10
 
 	if retangulo[0] + retangulo[2] > mouse[0] > retangulo[0] and retangulo[1] + retangulo[3] > mouse[1] > retangulo[1]:
-		pygame.draw.rect(janela, VERMELHO_ESCURO, retangulo)
+		pygame.draw.rect(janela, VERMELHO_ESCURO, pygame.Rect(retangulo), 20, raio_borda)
 		if clique[0] == 1 and acao != None:
 			acao()
 	else:
-		pygame.draw.rect(janela, VERMELHO_SOMBRA, retangulo)
+		#nem eu sei como fiz funcionar 
+		pygame.draw.rect(janela, VERMELHO_SOMBRA, pygame.Rect(retangulo), 20, raio_borda)
 
 	fontePequena = pygame.font.SysFont('comicsansms', 20)
 	surface_texto, rect_texto = textos(texto, fontePequena, BRANCO)
