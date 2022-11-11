@@ -92,7 +92,27 @@ def regras():
 		#botão para voltar para o menu	
 		criar_botao("VOLTAR",(LARGURA - 200, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, menu)
 	
+		#textos 
+		tamanho_texto = 30
+		x_alinhamento = 50
+
+		fonte = pygame.font.SysFont('timesnewroman', tamanho_texto)
 		
+		#tem muita regra aaaaa
+		regra1 = fonte.render('O jogo de damas é praticado em um tabuleiro de 64 casas, claras e escuras.', False, (BRANCO))
+		regra2 = fonte.render('O objetivo do jogo é imobilizar ou capturar todas as peças do adversário.', False, (BRANCO))
+		regra3 = fonte.render('A pedra anda só para frente, uma casa de cada vez.', False, (BRANCO))
+		regra4 = fonte.render('Quando a pedra atinge a oitava linha do tabuleiro ela é promovida à dama.', False, (BRANCO))
+		regra5 = fonte.render('A dama pode andar quantas casa quiser para frente e para trás.', False, (BRANCO))
+		regra6 = fonte.render('blablalblabla', False, (BRANCO))
+
+		janela.blit(regra1, (x_alinhamento, 60))
+		janela.blit(regra2, (x_alinhamento, 100))
+		janela.blit(regra3, (x_alinhamento, 140))
+		janela.blit(regra4, (x_alinhamento, 180))
+		janela.blit(regra5, (x_alinhamento, 220))
+		janela.blit(regra6, (x_alinhamento, 260))
+
 
 		pygame.display.update()
 
