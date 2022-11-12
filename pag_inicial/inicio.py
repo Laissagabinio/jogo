@@ -46,6 +46,25 @@ def criar_botao(texto, retangulo, VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, acao
 	rect_texto.center = (retangulo[0] + 60, retangulo[1] + 20)
 	janela.blit(janela_texto, rect_texto)
 
+#tela provisória do jogo
+def jogo():
+	imagem = pygame.image.load('assets/REGRAS.png') 
+	janela.blit(imagem, (0, 0))
+	janela_aberta = True
+
+	while janela_aberta:
+		for event in pygame.event.get():
+
+			#para fechar a página
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				exit()
+
+		#botão para voltar para o menu	
+		#depois eu troco esse botão por um de pause com um tipo de menu
+		criar_botao("VOLTAR",(LARGURA - 200, ALTURA - 100, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, menu)
+
+		pygame.display.update()
 
 # SAIR DO JOGO
 def sair():
@@ -161,10 +180,10 @@ def menu():
 		criar_botao("SAIR",(LARGURA - 760, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, sair)
 		criar_botao("REGRAS",(LARGURA - 560, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, regras)
 		criar_botao("CREDITOS",(LARGURA - 360, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, creditos)
+		criar_botao("JOGAR",(LARGURA - 560, ALTURA - 250, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, jogo)
 		pygame.display.update()
 
-
-
+		
     
 menu()
 
