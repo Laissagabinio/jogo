@@ -28,7 +28,7 @@ def textos(texto, font, color):
 	return textSurface, textSurface.get_rect()
 
 #CRIAR BOTÃO
-def criar_botao(texto, retangulo, VERMELHO_ESCURO, VERMELHOR_SOMBRA, BRANCO, acao=None):
+def criar_botao(texto, retangulo, VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, acao=None):
 	mouse = pygame.mouse.get_pos()
 	clique = pygame.mouse.get_pressed()
 	raio_borda = 10
@@ -41,10 +41,10 @@ def criar_botao(texto, retangulo, VERMELHO_ESCURO, VERMELHOR_SOMBRA, BRANCO, aca
 		#nem eu sei como fiz funcionar 
 		pygame.draw.rect(janela, VERMELHO_SOMBRA, pygame.Rect(retangulo), 20, raio_borda)
 
-	fontePequena = pygame.font.SysFont('comicsansms', 20)
-	surface_texto, rect_texto = textos(texto, fontePequena, BRANCO)
+	fonte = pygame.font.SysFont('comicsansms', 20)
+	janela_texto, rect_texto = textos(texto, fonte, BRANCO)
 	rect_texto.center = (retangulo[0] + 60, retangulo[1] + 20)
-	janela.blit(surface_texto, rect_texto)
+	janela.blit(janela_texto, rect_texto)
 
 
 # SAIR DO JOGO
@@ -68,9 +68,27 @@ def creditos():
 				exit()
 
 		#botão para voltar para o menu	
-		criar_botao("VOLTAR",(LARGURA - 200, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, menu)
+		criar_botao("VOLTAR",(LARGURA - 200, ALTURA - 100, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, menu)
 	
-		
+		#textos 
+		tamanho_texto = 30
+		fonte = pygame.font.SysFont('timesnewroman', tamanho_texto)
+
+		janela_texto, rect_texto = textos('aaaaaaaaaaaa', fonte, PRETO)
+		rect_texto.center = ((LARGURA /2), ALTURA / 3)
+		janela.blit(janela_texto, rect_texto)
+
+		janela_texto, rect_texto = textos('aaaaaaaaaaaaaaaaaa', fonte, PRETO)
+		rect_texto.center = ((LARGURA /2), ALTURA / 2.5)
+		janela.blit(janela_texto, rect_texto)
+
+		janela_texto, rect_texto = textos('Versão Python: 3.10.6', fonte, PRETO)
+		rect_texto.center = ((LARGURA /2), ALTURA / 1.7)
+		janela.blit(janela_texto, rect_texto)
+
+		janela_texto, rect_texto = textos('Versão Pygame: 2.1.2', fonte, PRETO)
+		rect_texto.center = ((LARGURA /2), ALTURA / 1.5)
+		janela.blit(janela_texto, rect_texto)
 
 		pygame.display.update()
 	
@@ -90,7 +108,7 @@ def regras():
 				exit()
 
 		#botão para voltar para o menu	
-		criar_botao("VOLTAR",(LARGURA - 200, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, menu)
+		criar_botao("VOLTAR",(LARGURA - 200, ALTURA - 100, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, menu)
 	
 		#textos 
 		tamanho_texto = 30
