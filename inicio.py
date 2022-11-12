@@ -1,16 +1,9 @@
 import pygame
 
-#tamanho
-LARGURA = 960
-ALTURA = 720
+from damas.constantes import LARGURA, ALTURA, FPS
+from damas.constantes import PRETO, BRANCO, VERMELHO, VERMELHO_ESCURO, VERMELHO_SOMBRA, MARROM
+from damas.tabuleiro import Tabuleiro
 
-#cores que vamos usar
-PRETO = (0, 0, 0)
-BRANCO = (255, 255, 255)
-VERMELHO = (255, 0, 0)
-VERMELHO_ESCURO = ('#B23535')  
-VERMELHO_SOMBRA = ('#792626')  
-MARROM = (92,64,51)
 
 #iniciando os módulos do pygame
 pygame.init()
@@ -20,6 +13,30 @@ janela = pygame.display.set_mode((960,720))
 janela_aberta = True
 
 pygame.draw.rect(janela, VERMELHO_ESCURO, pygame.Rect(30, 30, 60, 60),  2, 3)
+
+
+#leva pra tela do jogo
+def main():
+    janela_aberta = True
+    #esse relogio é pra deixar com o mesmo FPS em qualquer pc
+    clock = pygame.time.Clock()
+	#transforma o script tabuleiro.py em um objeto
+    tabuleiro = Tabuleiro()
+
+    while janela_aberta:
+        clock.tick(FPS)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                janela_aberta = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+				#preguiça de fazer essa parte 
+                pass
+
+        tabuleiro.desenhar_quadrados(janela)
+        pygame.display.update()
+
+    pygame.quit()
 
 
 #padrão dos textos
@@ -46,25 +63,7 @@ def criar_botao(texto, retangulo, VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, acao
 	rect_texto.center = (retangulo[0] + 60, retangulo[1] + 20)
 	janela.blit(janela_texto, rect_texto)
 
-#tela provisória do jogo
-def jogo():
-	imagem = pygame.image.load('assets/REGRAS.png') 
-	janela.blit(imagem, (0, 0))
-	janela_aberta = True
 
-	while janela_aberta:
-		for event in pygame.event.get():
-
-			#para fechar a página
-			if event.type == pygame.QUIT:
-				pygame.quit()
-				exit()
-
-		#botão para voltar para o menu	
-		#depois eu troco esse botão por um de pause com um tipo de menu
-		criar_botao("VOLTAR",(LARGURA - 200, ALTURA - 100, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, menu)
-
-		pygame.display.update()
 
 # SAIR DO JOGO
 def sair():
@@ -160,8 +159,8 @@ def regras():
 		janela.blit(regra9, (x_alinhamento, 380))
 		janela.blit(regra10, (x_alinhamento, 420))
 
-
 		pygame.display.update()
+
 
 #TELA DE MENU
 def menu():
@@ -171,7 +170,6 @@ def menu():
 
 	while janela_aberta:
 		for event in pygame.event.get():
-
 			#para fechar a página
 			if event.type == pygame.QUIT:
 				pygame.quit()
@@ -180,11 +178,12 @@ def menu():
 		criar_botao("SAIR",(LARGURA - 760, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, sair)
 		criar_botao("REGRAS",(LARGURA - 560, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, regras)
 		criar_botao("CREDITOS",(LARGURA - 360, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, creditos)
-		criar_botao("JOGAR",(LARGURA - 560, ALTURA - 250, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, jogo)
+		criar_botao("JOGAR",(LARGURA - 560, ALTURA - 250, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, main)
+
 		pygame.display.update()
 
-		
-    
+
+
 menu()
 
 
