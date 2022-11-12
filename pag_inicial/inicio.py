@@ -99,13 +99,15 @@ def regras():
 		fonte = pygame.font.SysFont('timesnewroman', tamanho_texto)
 		
 		#tem muita regra aaaaa
-		regra1 = fonte.render('O jogo de damas é praticado em um tabuleiro de 64 casas, claras e escuras.', False, (BRANCO))
-		regra2 = fonte.render('O objetivo do jogo é imobilizar ou capturar todas as peças do adversário.', False, (BRANCO))
-		regra3 = fonte.render('A pedra anda só para frente, uma casa de cada vez.', False, (BRANCO))
-		regra4 = fonte.render('Quando a pedra atinge a oitava linha do tabuleiro ela é promovida à dama.', False, (BRANCO))
-		regra5 = fonte.render('A dama pode andar quantas casa quiser para frente e para trás.', False, (BRANCO))
-		regra6 = fonte.render('blablalblabla', False, (BRANCO))
+		regra1 = fonte.render('O jogo de damas é praticado em um tabuleiro de 64 casas, claras e escuras.', 10, (PRETO))
+		regra2 = fonte.render('O objetivo do jogo é imobilizar ou capturar todas as peças do adversário.', 10, (PRETO))
+		regra3 = fonte.render('A peça movimenta-se em diagonal, para frente e uma casa de cada vez.', 10, (PRETO))
+		regra4 = fonte.render('Quando a pedra atinge a oitava linha do tabuleiro ela é promovida à dama.', 10, (PRETO))
+		regra5 = fonte.render('A dama pode andar quantas casa quiser para frente e para trás.', 10, (PRETO))
+		regra6 = fonte.render('A dama não pode saltar uma peça da mesma cor,', 10, (PRETO))
+		#só pra deixar pronto, depois eu formato tudo bonitinho
 
+		#posição dos textos, me lembre de fazer alguma variavel pra nao precisar usar esse monte de numero feio
 		janela.blit(regra1, (x_alinhamento, 60))
 		janela.blit(regra2, (x_alinhamento, 100))
 		janela.blit(regra3, (x_alinhamento, 140))
