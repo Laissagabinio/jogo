@@ -99,12 +99,16 @@ def regras():
 		fonte = pygame.font.SysFont('timesnewroman', tamanho_texto)
 		
 		#tem muita regra aaaaa
-		regra1 = fonte.render('O jogo de damas é praticado em um tabuleiro de 64 casas, claras e escuras.', 10, (PRETO))
-		regra2 = fonte.render('O objetivo do jogo é imobilizar ou capturar todas as peças do adversário.', 10, (PRETO))
+		regra1 = fonte.render('O jogo é praticado em um tabuleiro de 64 casas, claras e escuras.', 10, (PRETO))
+		regra2 = fonte.render('O objetivo é imobilizar ou capturar todas as peças do adversário.', 10, (PRETO))
 		regra3 = fonte.render('A peça movimenta-se em diagonal, para frente e uma casa de cada vez.', 10, (PRETO))
-		regra4 = fonte.render('Quando a pedra atinge a oitava linha do tabuleiro ela é promovida à dama.', 10, (PRETO))
+		regra4 = fonte.render('Quando a peça atinge a oitava linha do tabuleiro ela é promovida à dama.', 10, (PRETO))
 		regra5 = fonte.render('A dama pode andar quantas casa quiser para frente e para trás.', 10, (PRETO))
-		regra6 = fonte.render('A dama não pode saltar uma peça da mesma cor,', 10, (PRETO))
+		regra6 = fonte.render('A dama não pode saltar uma peça da mesma cor.', 10, (PRETO))
+		regra7 = fonte.render('Quando possível, a captura é obrigatória.', 10, (PRETO))
+		regra8 = fonte.render('Em casos com mais de um modo de captura, deve ser executado o que captura mais peças.', 10, (PRETO))
+		regra9 = fonte.render('Não é permitido sopro.', 10, (PRETO))
+		regra10 = fonte.render('Duas ou mais peças juntas na mesma diagonal não podem ser capturadas.', 10, (PRETO))
 		#só pra deixar pronto, depois eu formato tudo bonitinho
 
 		#posição dos textos, me lembre de fazer alguma variavel pra nao precisar usar esse monte de numero feio
@@ -114,6 +118,10 @@ def regras():
 		janela.blit(regra4, (x_alinhamento, 180))
 		janela.blit(regra5, (x_alinhamento, 220))
 		janela.blit(regra6, (x_alinhamento, 260))
+		janela.blit(regra7, (x_alinhamento, 300))
+		janela.blit(regra8, (x_alinhamento, 340))
+		janela.blit(regra9, (x_alinhamento, 380))
+		janela.blit(regra10, (x_alinhamento, 420))
 
 
 		pygame.display.update()
