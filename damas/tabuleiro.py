@@ -29,8 +29,13 @@ class Tabuleiro:
                 #ele vai passar lendo cada altura e cada largura, se coincidir com o P, ele vai deixar preto e também fazer a peça vermelha
                 if matriz[largura][altura] == 'p':
                     pygame.draw.rect(janela, PRETO, (x, y, TAMANHO_CASAS, TAMANHO_CASAS))
+                    #tem que ter "+45" para poder ficar no centro
                     pygame.draw.circle(janela, VERMELHO, (x + 45,y + 45), 15, 0)
                 else:
                     pygame.draw.rect(janela, BRANCO, (x, y, TAMANHO_CASAS, TAMANHO_CASAS))
                 x += TAMANHO_CASAS
-            y += TAMANHO_CASAS     
+            y += TAMANHO_CASAS  
+
+           
+
+                    
