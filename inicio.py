@@ -1,9 +1,8 @@
 import pygame
 
-from damas.constantes import LARGURA, ALTURA, FPS
-from damas.constantes import PRETO, BRANCO, VERMELHO, VERMELHO_ESCURO, VERMELHO_SOMBRA, MARROM
+from damas.constantes import LARGURA, ALTURA, FPS,PRETO, BRANCO, VERMELHO, VERMELHO_ESCURO, VERMELHO_SOMBRA, MARROM
 from damas.tabuleiro import Tabuleiro
-
+from damas.pecas import Peca
 
 #iniciando os módulos do pygame
 pygame.init()
@@ -22,6 +21,7 @@ def main():
     clock = pygame.time.Clock()
 	#transforma o script tabuleiro.py em um objeto
     tabuleiro = Tabuleiro()
+    pecas = Peca()
 
     while janela_aberta:
         clock.tick(FPS)
@@ -29,13 +29,15 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 janela_aberta = False
+				
             if event.type == pygame.MOUSEBUTTONDOWN:
 				#preguiça de fazer essa parte 
                 pass
 
         tabuleiro.desenhar_quadrados(janela)
+        pecas.desenha_peca(janela)
         pygame.display.update()
-
+       
     pygame.quit()
 
 
@@ -144,7 +146,7 @@ def regras():
 		regra7 = fonte.render('Quando possível, a captura é obrigatória.', 10, (PRETO))
 		regra8 = fonte.render('Em casos com mais de um modo de captura, deve ser executado o que captura mais peças.', 10, (PRETO))
 		regra9 = fonte.render('Não é permitido sopro.', 10, (PRETO))
-		regra10 = fonte.render('Duas ou mais peças juntas na mesma diagonal não podem ser capturadas.', 10, (PRETO))
+		regra10 = fonte.render('Duas ou mais peças consecutivas na mesma diagonal não podem ser capturadas.', 10, (PRETO))
 		#só pra deixar pronto, depois eu formato tudo bonitinho
 
 		#posição dos textos, me lembre de fazer alguma variavel pra nao precisar usar esse monte de numero feio

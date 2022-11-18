@@ -16,3 +16,6 @@ VERMELHO = (255, 0, 0)
 VERMELHO_ESCURO = ('#B23535')  
 VERMELHO_SOMBRA = ('#792626')  
 MARROM = (92,64,51)
+
+#matriz tabuleiro 
+matriz = []
