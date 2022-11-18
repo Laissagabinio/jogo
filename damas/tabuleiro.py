@@ -1,5 +1,5 @@
 import pygame
-from .constantes import PRETO, BRANCO, FILEIRAS, COLUNAS, TAMANHO_CASAS
+from .constantes import VERMELHO, PRETO, BRANCO, FILEIRAS, COLUNAS, TAMANHO_CASAS
 
 class Tabuleiro:
     def __init__(self):
@@ -13,8 +13,24 @@ class Tabuleiro:
 
     def desenhar_quadrados(self, janela):
         janela.fill(PRETO) 
-        for fileira in range(FILEIRAS):
-            #esse fileira%2 serve pra fazer dois tipos de padrões,
-            #um começando com branco, q vale 0 e outro preto valendo 1, quando usa %2 desenha a cada duas casas
-            for coluna in range(fileira % 2, FILEIRAS, 2):
-                pygame.draw.rect(janela, BRANCO, (fileira * TAMANHO_CASAS, coluna * TAMANHO_CASAS, TAMANHO_CASAS, TAMANHO_CASAS))
+        matriz = []
+
+        for i in range(8): #8 são as quantidades de fileiras
+            #P é se a casa for preta e B é se a casa for branca
+            if i % 2 == 0:
+                matriz.append(['p','b','p','b','p','b','p','b'])
+            else:
+                matriz.append(['b','p','b','p','b','p','b', 'p'])
+
+        y = 0
+        for largura in range(len(matriz)):
+            x = 0
+            for altura in range(len(matriz[largura])):
+                #ele vai passar lendo cada altura e cada largura, se coincidir com o P, ele vai deixar preto e também fazer a peça vermelha
+                if matriz[largura][altura] == 'p':
+                    pygame.draw.rect(janela, PRETO, (x, y, TAMANHO_CASAS, TAMANHO_CASAS))
+                    pygame.draw.circle(janela, VERMELHO, (x + 45,y + 45), 15, 0)
+                else:
+                    pygame.draw.rect(janela, BRANCO, (x, y, TAMANHO_CASAS, TAMANHO_CASAS))
+                x += TAMANHO_CASAS
+            y += TAMANHO_CASAS     
