@@ -2,7 +2,6 @@ import pygame
 
 from damas.constantes import LARGURA, ALTURA, FPS,PRETO, BRANCO, VERMELHO, VERMELHO_ESCURO, VERMELHO_SOMBRA, MARROM
 from damas.tabuleiro import Tabuleiro
-from damas.pecas import Peca
 
 #iniciando os módulos do pygame
 pygame.init()
@@ -21,7 +20,6 @@ def main():
     clock = pygame.time.Clock()
 	#transforma o script tabuleiro.py em um objeto
     tabuleiro = Tabuleiro()
-    pecas = Peca()
 
     while janela_aberta:
         clock.tick(FPS)
@@ -35,7 +33,6 @@ def main():
                 pass
 
         tabuleiro.desenhar_quadrados(janela)
-        pecas.desenha_peca(janela)
         pygame.display.update()
        
     pygame.quit()

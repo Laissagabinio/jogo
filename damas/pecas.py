@@ -1,6 +1,5 @@
 import pygame
-from .constantes import BRANCO, VERMELHO, FILEIRAS, TAMANHO_CASAS
-
+from .constantes import PRETO, BRANCO, VERMELHO, FILEIRAS, TAMANHO_CASAS
 
 
 class Peca:
@@ -17,8 +16,9 @@ class Peca:
     def add_y (self,y):
         self.y = y
         
-    def desenha_peca(self, janela):
-       ''' peça_vermelha = pygame.draw.circle(janela, VERMELHO, (self.x,self.y), 15, 0)
+    def desenha_peca(self, janela):        
+        
+        '''peça_vermelha = pygame.draw.circle(janela, VERMELHO, (self.x,self.y), 15, 0)
         peça_branca = pygame.draw.circle(janela, BRANCO, (self.x,self.y), 15, 0)'''
 ''' for fileira in range(FILEIRAS):
             #esse fileira%2 serve pra fazer dois tipos de padrões,
