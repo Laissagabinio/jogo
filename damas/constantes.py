@@ -1,5 +1,3 @@
-#achei melhor deixar tudo aqui por enquanto pra nao me perder
-
 import pygame 
 
 FPS = 60
