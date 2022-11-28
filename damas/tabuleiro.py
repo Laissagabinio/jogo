@@ -1,6 +1,6 @@
 import pygame
 from .constantes import VERMELHO, PRETO, BRANCO, CINZA, FILEIRAS, COLUNAS, TAMANHO_CASAS
-from .pecas import Peca
+from .peca import Peca
 
 class Tabuleiro:
     def __init__(self):
@@ -23,6 +23,18 @@ class Tabuleiro:
             for coluna in range(fileira % 2, FILEIRAS, 2):
                 pygame.draw.rect(janela, BRANCO, (fileira * TAMANHO_CASAS, coluna * TAMANHO_CASAS, TAMANHO_CASAS, TAMANHO_CASAS))
         #pygame.display.update()
+
+    def mover(self, peca, fileira, coluna):
+        # isso aqui é pra mover a peça sem precisar colunar numa variavel temporaria 
+        self.tabuleiro[peca.fileira][peca.coluna], self.tabuleiro[fileira][coluna] = self.tabuleiro[fileira][coluna], self.tabuleiro[peca.fileira][peca.coluna]
+        peca.mover(fileira, coluna)
+
+        if fileira == 0 or fileira == FILEIRAS - 1:
+            peca.torna_dama()
+            if peca.cor == VERMELHO:
+                self.vermelho_damas += 1
+            else:
+                self.branco_damas += 1
 
     def criar_tabuleiro(self):
         # eu tentei fazer com matriz mas fiquei muito confusa :(
@@ -52,36 +64,99 @@ class Tabuleiro:
     def get_peca(self, fileira, coluna):
         return self.tabuleiro[fileira][coluna]
 
+    def deletar_peca(self, pecas):
+        for peca in pecas:
+            self.tabuleiro[peca.fileira][peca.coluna] = 0
+            if peca != 0:
+                if peca.cor == BRANCO:
+                    self.esquerda_branco -= 1
+                else:
+                    self.esquerda_vermelho -= 1
+
+    def movimentos_validos(self, peca):
+        direita = peca.coluna + 1
+        esquerda = peca.coluna - 1
+        fileira = peca.fileira
+        movimentos = {}
+
+        if peca.cor == BRANCO or peca.dama:
+            movimentos.update(self.mover_esquerda(fileira -1, max(fileira-3, -1), -1, peca.cor, esquerda))
+            movimentos.update(self.mover_direita(fileira -1, max(fileira-3, -1), -1, peca.cor, direita))
+        if peca.cor == VERMELHO or peca.dama:
+            movimentos.update(self.mover_esquerda(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, esquerda))
+            movimentos.update(self.mover_direita(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, direita))
     
+        return movimentos
+
+    def mover_direita(self, começo, fim, passo, cor, direita, pular = []):
+        movimentos = {}
+        ultimo = []
+        for p in range(começo, fim, passo):
+            if direita >= COLUNAS:
+                break
+            
+            atual = self.tabuleiro[p][direita]
+            if atual == 0:
+                if pular and not ultimo:
+                    break
+                elif pular: 
+                    movimentos[(p, direita)] = ultimo + pular 
+                else:
+                    movimentos[(p, direita)] = ultimo
+                
+                if ultimo:
+                    if passo == -1:
+                        fileira = max(p-3, 0)
+                    else:
+                        fileira = min(p+3, FILEIRAS)
+                        
+                    movimentos.update(self.mover_direita(p+passo, fileira, passo, cor, direita-1, pular = ultimo))
+                    movimentos.update(self.mover_esquerda(p+passo, fileira, passo, cor, direita+1, pular = ultimo))
+                break
+            elif atual.cor == cor:
+                break
+            else:
+                ultimo = [atual]
+
+            direita += 1
+        
+        return movimentos
+
+    def mover_esquerda(self, começo, fim, passo, cor, esquerda, pular = []):
+        movimentos = {}
+        ultimo = []
+        for p in range(começo, fim, passo):
+            if esquerda < 0:
+                break
+            
+            atual = self.tabuleiro[p][esquerda]
+            if atual == 0:
+                if pular  and not ultimo:
+                    break
+                elif pular :
+                    movimentos[(p, esquerda)] = ultimo + pular 
+                else:
+                    movimentos[(p, esquerda)] = ultimo
+                
+                if ultimo:
+                    if passo == -1:
+                        fileira = max(p-3, 0)
+                    else:
+                        fileira = min(p+3, FILEIRAS)
+
+                    movimentos.update(self.mover_esquerda(p+passo, fileira, passo, cor, esquerda -1, pular = ultimo))
+                    movimentos.update(self.mover_direita(p+passo, fileira, passo, cor, esquerda +1, pular = ultimo))
+                break
+            elif atual.cor == cor:
+                break
+            else:
+                ultimo = [atual]
+
+            esquerda -= 1
+        
+        return movimentos
 
         
-
-
-        '''for i in range(8): #8 são as quantidades de fileiras
-            #P é se a casa for preta e B é se a casa for branca
-            if i % 2 == 0:
-                matriz.append(['b','p','b','p','b','p','b', 'p'])
-            else:
-                matriz.append(['p','b','p','b','p','b', 'p', 'b'])
-            # eu so mudei a ordem pq tava ao contrario '''
-
-        '''y = 0
-        for largura in range(len(coluna)):
-            x = 0
-            for altura in range(len(altura)):
-                #ele vai passar lendo cada altura e cada largura, se coincidir com o P, ele vai deixar preto e também fazer a peça vermelha
-                if matriz[largura][altura] == 'p':
-                    pygame.draw.rect(janela, PRETO, (x, y, TAMANHO_CASAS, TAMANHO_CASAS))
-                    #tem que ter "+45" para poder ficar no centro
-                    if largura <= 2:
-                        pygame.draw.circle(janela, VERMELHO, (x + 45,y + 45), 30, 0)
-                    elif largura >= 5:
-                        pygame.draw.circle(janela, BRANCO, (x + 45,y + 45), 30, 0)
-                    # gambiarra hehe
-                else:
-                    pygame.draw.rect(janela, BRANCO, (x, y, TAMANHO_CASAS, TAMANHO_CASAS))
-                x += TAMANHO_CASAS
-            y += TAMANHO_CASAS  '''
 
 
            

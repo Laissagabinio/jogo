@@ -1,8 +1,9 @@
 import pygame, sys, os
 from pygame.locals import*
 
-from damas.constantes import LARGURA, ALTURA, FPS,PRETO, BRANCO, VERMELHO, VERMELHO_ESCURO, VERMELHO_SOMBRA, MARROM, CINZA
+from damas.constantes import LARGURA, ALTURA, FPS, TAMANHO_CASAS, PRETO, BRANCO, VERMELHO, VERMELHO_ESCURO, VERMELHO_SOMBRA, MARROM, CINZA
 from damas.tabuleiro import Tabuleiro
+from jogo import Jogo
 
 #iniciando os módulos do pygame
 pygame.init()
@@ -19,8 +20,7 @@ def main():
     janela_aberta = True
     #esse relogio é pra deixar com o mesmo FPS em qualquer pc
     clock = pygame.time.Clock()
-	#transforma o script tabuleiro.py em um objeto
-    tabuleiro = Tabuleiro()
+    jogo = Jogo(janela)
 
     while janela_aberta:
         clock.tick(FPS)
@@ -31,13 +31,21 @@ def main():
 				
             if event.type == pygame.MOUSEBUTTONDOWN:
 				#preguiça de fazer essa parte 
-                pass
+                posição = pygame.mouse.get_pos()
+                fileira, coluna = posição_mouse(posição)
+                jogo.selecionar(fileira, coluna)
 
-        tabuleiro.desenhar(janela)
-        pygame.display.update()
+        '''tabuleiro.desenhar(janela)
+        pygame.display.update()'''
+        jogo.update()
        
     pygame.quit()
 
+def posição_mouse(posição):
+	x, y = posição 
+	coluna = x // TAMANHO_CASAS
+	fileira = y // TAMANHO_CASAS	
+	return fileira, coluna
 
 #padrão dos textos
 def textos(texto, font, color):
@@ -58,8 +66,8 @@ def criar_botao(texto, retangulo, VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, acao
 		#nem eu sei como fiz funcionar 
 		pygame.draw.rect(janela, VERMELHO_SOMBRA, pygame.Rect(retangulo), 20, raio_borda)
 
-	#fonte = pygame.font.SysFont('comicsansms.ttf', 20)
-	fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', 18)
+	tamanho_texto = 18
+	fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
 	janela_texto, rect_texto = textos(texto, fonte, BRANCO)
 	rect_texto.center = (retangulo[0] + 60, retangulo[1] + 20)
 	janela.blit(janela_texto, rect_texto)
@@ -93,11 +101,15 @@ def creditos():
 		tamanho_texto = 28
 		fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
 
-		janela_texto, rect_texto = textos('aaaaaaaaaaaa', fonte, PRETO)
+		janela_texto, rect_texto = textos('Devs:', fonte, PRETO)
+		rect_texto.center = ((LARGURA /2), ALTURA / 3.7)
+		janela.blit(janela_texto, rect_texto)
+
+		janela_texto, rect_texto = textos('Laíssa Gabinio', fonte, PRETO)
 		rect_texto.center = ((LARGURA /2), ALTURA / 3)
 		janela.blit(janela_texto, rect_texto)
 
-		janela_texto, rect_texto = textos('aaaaaaaaaaaaaaaaaa', fonte, PRETO)
+		janela_texto, rect_texto = textos('Yara Barreto', fonte, PRETO)
 		rect_texto.center = ((LARGURA /2), ALTURA / 2.5)
 		janela.blit(janela_texto, rect_texto)
 

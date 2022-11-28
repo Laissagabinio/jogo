@@ -19,3 +19,5 @@ MARROM = (92,64,51)
 #matriz tabuleiro 
 matriz = []
 
+# imagens
+COROA = pygame.image.load('assets/coroa.png')
