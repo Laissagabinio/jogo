@@ -117,11 +117,13 @@ def creditos():
 		rect_texto.center = ((LARGURA /2), ALTURA / 2.5)
 		janela.blit(janela_texto, rect_texto)
 
+		#retângulo para primeiro texto da versão python
 		pygame.draw.rect(janela, VERMELHO_SOMBRA, (300,400,370,45))
 		janela_texto, rect_texto = textos('Versão Python: 3.10.6', fonte, PRETO)
 		rect_texto.center = ((LARGURA /2), ALTURA / 1.7)
 		janela.blit(janela_texto, rect_texto)
 		
+		#retângulo para segundo texto da versão python
 		pygame.draw.rect(janela, VERMELHO_SOMBRA, (300,475,370,45))
 		janela_texto, rect_texto = textos('Versão Pygame: 2.1.2', fonte, PRETO)
 		rect_texto.center = ((LARGURA /2), ALTURA / 1.45)
@@ -154,17 +156,27 @@ def regras():
 
 		fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
 
-		#tem muita regra aaaaa
-		regra1 = fonte.render('> O jogo é praticado em um tabuleiro de 64 casas, claras e escuras.', True, (PRETO))
-		regra2 = fonte.render('> O objetivo é imobilizar ou capturar todas as peças do adversário.', True, (PRETO))
-		regra3 = fonte.render('> A peça movimenta-se em diagonal, para frente e uma casa de cada vez.', True, (PRETO))
-		regra4 = fonte.render('> A peça é promovida à dama quando atinge o final do tabuleiro.', True, (PRETO))
-		regra5 = fonte.render('> A dama pode andar quantas casa quiser para frente e para trás.', True, (PRETO))
-		regra6 = fonte.render('> A dama não pode saltar uma peça da mesma cor.', True, (PRETO))
-		regra7 = fonte.render('> Quando possível, a captura é obrigatória.', True, (PRETO))
-		regra8 = fonte.render('> Deve ser executado o movimento que captura mais peças.', True, (PRETO))
-		regra9 = fonte.render('> Não é permitido sopro.', True, (PRETO))
-		regra10 = fonte.render('> Duas ou mais peças consecutivas na mesma diagonal', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,50,850,40))
+		regra1 = fonte.render('1) O jogo é praticado em um tabuleiro de 64 casas, claras e escuras.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,102,845,40))
+		regra2 = fonte.render('2) O objetivo é imobilizar ou capturar todas as peças do adversário.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,155,860,40))
+		regra3 = fonte.render('3) A peça movimenta-se em diagonal, para frente e uma casa de cada vez.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,210,795,40))
+		regra4 = fonte.render('4) A peça é promovida à dama quando atinge o final do tabuleiro.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,270,815,40))
+		regra5 = fonte.render('5) A dama pode andar quantas casa quiser para frente e para trás.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,320,610,40))
+		regra6 = fonte.render('6) A dama não pode saltar uma peça da mesma cor.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,380,560,40))
+		regra7 = fonte.render('7) Quando possível, a captura é obrigatória.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,430,730,40))
+		regra8 = fonte.render('8) Deve ser executado o movimento que captura mais peças.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,490,315,40))
+		regra9 = fonte.render('9) Não é permitido sopro.', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,550,695,40))
+		regra10 = fonte.render('10) Duas ou mais peças consecutivas na mesma diagonal', True, (PRETO))
+		pygame.draw.rect(janela, VERMELHO_ESCURO, (55,590,355,40))
 		regra11 = fonte.render('não podem ser capturadas.', True, (PRETO))
 		#só pra deixar pronto, depois eu formato tudo bonitinho
 
