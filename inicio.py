@@ -82,7 +82,7 @@ def sair():
 #CŔEDITOS 
 def creditos():
 
-	imagem = pygame.image.load('assets/REGRAS.png') 
+	imagem = pygame.image.load('assets/fundoC.png') #essa imagem de fundo é a que tem a coroa em cima do nome "devs"
 	janela.blit(imagem, (0, 0))
 	janela_aberta = True
 	
@@ -101,6 +101,10 @@ def creditos():
 		tamanho_texto = 28
 		fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
 
+		pygame.draw.rect(janela, VERMELHO_SOMBRA, (350,160,260,190))
+		#não consegui colocar aqui a borda arredondada, esqueci completamente como faz
+		pygame.draw.line(janela,PRETO,(435,205),(520,205),3)
+		#linha que fica embaixo do nome "Devs"
 		janela_texto, rect_texto = textos('Devs:', fonte, PRETO)
 		rect_texto.center = ((LARGURA /2), ALTURA / 3.7)
 		janela.blit(janela_texto, rect_texto)
@@ -113,12 +117,14 @@ def creditos():
 		rect_texto.center = ((LARGURA /2), ALTURA / 2.5)
 		janela.blit(janela_texto, rect_texto)
 
+		pygame.draw.rect(janela, VERMELHO_SOMBRA, (300,400,370,45))
 		janela_texto, rect_texto = textos('Versão Python: 3.10.6', fonte, PRETO)
 		rect_texto.center = ((LARGURA /2), ALTURA / 1.7)
 		janela.blit(janela_texto, rect_texto)
-
+		
+		pygame.draw.rect(janela, VERMELHO_SOMBRA, (300,475,370,45))
 		janela_texto, rect_texto = textos('Versão Pygame: 2.1.2', fonte, PRETO)
-		rect_texto.center = ((LARGURA /2), ALTURA / 1.5)
+		rect_texto.center = ((LARGURA /2), ALTURA / 1.45)
 		janela.blit(janela_texto, rect_texto)
 
 		pygame.display.update()
@@ -191,10 +197,10 @@ def menu():
 				pygame.quit()
 				exit()
 		
-		criar_botao("SAIR",(LARGURA - 760, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, sair)
+		criar_botao("JOGAR",(LARGURA - 760, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, main)
 		criar_botao("REGRAS",(LARGURA - 560, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, regras)
 		criar_botao("CREDITOS",(LARGURA - 360, ALTURA / 2, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, creditos)
-		criar_botao("JOGAR",(LARGURA - 560, ALTURA - 250, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, main)
+		criar_botao("SAIR",(LARGURA - 560, ALTURA - 250, 120, 40), VERMELHO_ESCURO, VERMELHO_SOMBRA, BRANCO, sair)
 
 		pygame.display.update()
 
