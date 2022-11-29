@@ -101,7 +101,9 @@ def creditos():
 		tamanho_texto = 28
 		fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
 
-		pygame.draw.rect(janela, VERMELHO_SOMBRA, (350,160,260,190))
+		#pygame.draw.rect(janela, VERMELHO_SOMBRA, (350,160,260,190))
+                pygame.draw.rect(janela, VERMELHO_SOMBRA, pygame.Rect(350, 160, 260, 190), 20, 10)
+                #🦆
 		#não consegui colocar aqui a borda arredondada, esqueci completamente como faz
 		pygame.draw.line(janela,PRETO,(435,205),(520,205),3)
 		#linha que fica embaixo do nome "Devs"
