@@ -3,7 +3,7 @@ from pygame.locals import*
 
 from damas.constantes import LARGURA, ALTURA, FPS, TAMANHO_CASAS, PRETO, BRANCO, VERMELHO, VERMELHO_ESCURO, VERMELHO_SOMBRA, MARROM, CINZA
 from damas.tabuleiro import Tabuleiro
-from jogo import Jogo
+from damas.jogo import Jogo
 
 #iniciando os módulos do pygame
 pygame.init()
@@ -31,14 +31,14 @@ def main():
 				
             if event.type == pygame.MOUSEBUTTONDOWN:
 				#preguiça de fazer essa parte 
+                pass
                 posição = pygame.mouse.get_pos()
                 fileira, coluna = posição_mouse(posição)
                 jogo.selecionar(fileira, coluna)
+				
+				
+        jogo.update()      
 
-        '''tabuleiro.desenhar(janela)
-        pygame.display.update()'''
-        jogo.update()
-       
     pygame.quit()
 
 def posição_mouse(posição):

@@ -4,32 +4,33 @@ from .constantes import PRETO, BRANCO, VERMELHO, FILEIRAS, COLUNAS, TAMANHO_CASA
 
 class Peca:
     def __init__(self, fileira, coluna, cor):
-        self.coluna = coluna
         self.fileira = fileira
+        self.coluna = coluna
         self.cor = cor 
         self.dama = False
         self.x = 0
         self.y = 0
         self.posição()
-    
+        
     # chamar essa função quando a peça chegar no final do tabuleiro
     def torna_dama(self):
         self.dama = True
-        
-    def posição(self):
-        self.y = TAMANHO_CASAS * self.fileira + TAMANHO_CASAS // 2
-        self.x = TAMANHO_CASAS * self.coluna + TAMANHO_CASAS // 2
 
     def desenhar(self, janela):
         # tem outra função igual no tabuleiro, quando eu chamo ela no inicio ele desenha o tabuleiro e as peças ao mesmo tempo
         pygame.draw.circle(janela, self.cor, (self.x, self.y), 30, 0)
         if self.dama:
-            janela.blit(COROA, (self.x - 50, self.y + 50))
+            janela.blit(COROA, (self.x - COROA.get_width()//2, self.y - COROA.get_height()//2))
+
+    def posição(self):
+        self.y = TAMANHO_CASAS * self.fileira + TAMANHO_CASAS // 2
+        self.x = TAMANHO_CASAS * self.coluna + TAMANHO_CASAS // 2
 
     def mover(self, fileira, coluna):
         self.fileira = fileira 
         self.coluna = coluna
         self.posição()
+
 
 
     

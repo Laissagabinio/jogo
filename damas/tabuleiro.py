@@ -24,21 +24,8 @@ class Tabuleiro:
                 pygame.draw.rect(janela, BRANCO, (fileira * TAMANHO_CASAS, coluna * TAMANHO_CASAS, TAMANHO_CASAS, TAMANHO_CASAS))
         #pygame.display.update()
 
-    def mover(self, peca, fileira, coluna):
-        # isso aqui é pra mover a peça sem precisar colunar numa variavel temporaria 
-        self.tabuleiro[peca.fileira][peca.coluna], self.tabuleiro[fileira][coluna] = self.tabuleiro[fileira][coluna], self.tabuleiro[peca.fileira][peca.coluna]
-        peca.mover(fileira, coluna)
-
-        if fileira == 0 or fileira == FILEIRAS - 1:
-            peca.torna_dama()
-            if peca.cor == VERMELHO:
-                self.vermelho_damas += 1
-            else:
-                self.branco_damas += 1
-
     def criar_tabuleiro(self):
-        # eu tentei fazer com matriz mas fiquei muito confusa :(
-
+    
         for fileira in range(FILEIRAS):
             self.tabuleiro.append([])
             for coluna in range(COLUNAS):
@@ -49,6 +36,7 @@ class Tabuleiro:
                     elif fileira > 4:
                         self.tabuleiro[fileira].append(Peca(fileira, coluna, BRANCO))
                     else:
+                        # aqui onde nao tem uma peça ele adiciona 0
                         self.tabuleiro[fileira].append(0)
                 else:
                     self.tabuleiro[fileira].append(0)
@@ -58,48 +46,69 @@ class Tabuleiro:
         for fileira in range(FILEIRAS):
             for coluna in range(COLUNAS):
                 peca = self.tabuleiro[fileira][coluna]
+                # a peça é 0 onde nao tem peças
                 if peca != 0:
                     peca.desenhar(janela)
+
+    def mover(self, peca, fileira, coluna):
+        # isso aqui é pra mover a peça sem precisar colocar numa variavel temporaria 
+        self.tabuleiro[peca.fileira][peca.coluna], self.tabuleiro[fileira][coluna] = self.tabuleiro[fileira][coluna], self.tabuleiro[peca.fileira][peca.coluna]
+        peca.mover(fileira, coluna)
+
+        if fileira == 0 or fileira == FILEIRAS - 1:
+            peca.torna_dama()
+            if peca.cor == VERMELHO:
+                self.vermelho_damas += 1
+            else:
+                self.branco_damas += 1
 
     def get_peca(self, fileira, coluna):
         return self.tabuleiro[fileira][coluna]
 
-    def deletar_peca(self, pecas):
-        for peca in pecas:
-            self.tabuleiro[peca.fileira][peca.coluna] = 0
-            if peca != 0:
-                if peca.cor == BRANCO:
-                    self.esquerda_branco -= 1
-                else:
-                    self.esquerda_vermelho -= 1
+    def get_movimentos_validos(self, peca):
+        # os movimentos validos vao ficar dentro desse dicionario
+        movimentos = {}
+        direita = peca.coluna + 1
+        esquerda = peca.coluna - 1
+        fileira = peca.fileira   
 
+        if peca.cor == BRANCO or peca.dama:
+            movimentos.update(self._mover_esquerda(fileira -1, max(fileira-3, -1), -1, peca.cor, esquerda))
+            movimentos.update(self._mover_direita(fileira -1, max(fileira-3, -1), -1, peca.cor, direita))
+        if peca.cor == VERMELHO or peca.dama:
+            movimentos.update(self._mover_esquerda(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, esquerda))
+            movimentos.update(self._mover_direita(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, direita))
     
-    
+        return movimentos
 
-    def mover_direita(self, começo, fim, passo, cor, direita, pular = []):
+    def _mover_direita(self, começo, fim, passo, cor, direita, pular = []):
         movimentos = {}
         ultimo = []
-        for p in range(começo, fim, passo):
+        for f in range(começo, fim, passo):
             if direita >= COLUNAS:
                 break
             
-            atual = self.tabuleiro[p][direita]
+            # esse f é outra variavel pra fileira
+            atual = self.tabuleiro[f][direita]
             if atual == 0:
+                # vai ser 0 quando uma casa estiver vazia
                 if pular and not ultimo:
+                    # aqui ele chega se se alguma peça foi comida e nao tem outra possibilidade, entao ele encerra a jogada 
                     break
                 elif pular: 
-                    movimentos[(p, direita)] = ultimo + pular 
+                    # aqui serve pra ele comer duas peças ao mesmo tempo
+                    movimentos[(f, direita)] = ultimo + pular 
                 else:
-                    movimentos[(p, direita)] = ultimo
+                    movimentos[(f, direita)] = ultimo
                 
                 if ultimo:
                     if passo == -1:
-                        fileira = max(p-3, 0)
+                        fileira = max(f-3, 0)
                     else:
-                        fileira = min(p+3, FILEIRAS)
+                        fileira = min(f+3, FILEIRAS)
                         
-                    movimentos.update(self.mover_direita(p+passo, fileira, passo, cor, direita-1, pular = ultimo))
-                    movimentos.update(self.mover_esquerda(p+passo, fileira, passo, cor, direita+1, pular = ultimo))
+                    movimentos.update(self._mover_direita(f+passo, fileira, passo, cor, direita-1, pular = ultimo))
+                    movimentos.update(self._mover_esquerda(f+passo, fileira, passo, cor, direita+1, pular = ultimo))
                 break
             elif atual.cor == cor:
                 break
@@ -110,30 +119,30 @@ class Tabuleiro:
         
         return movimentos
 
-    def mover_esquerda(self, começo, fim, passo, cor, esquerda, pular = []):
+    def _mover_esquerda(self, começo, fim, passo, cor, esquerda, pular = []):
         movimentos = {}
         ultimo = []
-        for p in range(começo, fim, passo):
+        for f in range(começo, fim, passo):
             if esquerda < 0:
                 break
             
-            atual = self.tabuleiro[p][esquerda]
+            atual = self.tabuleiro[f][esquerda]
             if atual == 0:
-                if pular  and not ultimo:
+                if pular and not ultimo:
                     break
-                elif pular :
-                    movimentos[(p, esquerda)] = ultimo + pular 
+                elif pular:
+                    movimentos[(f, esquerda)] = ultimo + pular 
                 else:
-                    movimentos[(p, esquerda)] = ultimo
+                    movimentos[(f, esquerda)] = ultimo
                 
                 if ultimo:
                     if passo == -1:
-                        fileira = max(p-3, 0)
+                        fileira = max(f-3, 0)
                     else:
-                        fileira = min(p+3, FILEIRAS)
+                        fileira = min(f+3, FILEIRAS)
 
-                    movimentos.update(self.mover_esquerda(p+passo, fileira, passo, cor, esquerda -1, pular = ultimo))
-                    movimentos.update(self.mover_direita(p+passo, fileira, passo, cor, esquerda +1, pular = ultimo))
+                    movimentos.update(self._mover_esquerda(f+passo, fileira, passo, cor, esquerda -1, pular = ultimo))
+                    movimentos.update(self._mover_direita(f+passo, fileira, passo, cor, esquerda +1, pular = ultimo))
                 break
             elif atual.cor == cor:
                 break
@@ -144,21 +153,14 @@ class Tabuleiro:
         
         return movimentos
 
-    def movimentos_validos(self, peca):
-        direita = peca.coluna + 1
-        esquerda = peca.coluna - 1
-        fileira = peca.fileira
-        movimentos = {}
-
-        if peca.cor == BRANCO or peca.dama:
-            movimentos.update(self.mover_esquerda(fileira -1, max(fileira-3, -1), -1, peca.cor, esquerda))
-            movimentos.update(self.mover_direita(fileira -1, max(fileira-3, -1), -1, peca.cor, direita))
-        if peca.cor == VERMELHO or peca.dama:
-            movimentos.update(self.mover_esquerda(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, esquerda))
-            movimentos.update(self.mover_direita(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, direita))
-    
-        return movimentos   
-
+    def deletar_peca(self, pecas):
+        for peca in pecas:
+            self.tabuleiro[peca.fileira][peca.coluna] = 0
+            if peca != 0:
+                if peca.cor == BRANCO:
+                    self.branco_peças -= 1
+                else:
+                    self.vermelho_peças -= 1
 
            
 

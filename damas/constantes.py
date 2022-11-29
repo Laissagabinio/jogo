@@ -20,4 +20,5 @@ MARROM = (92,64,51)
 matriz = []
 
 # imagens
-COROA = pygame.image.load('assets/coroa.png')
+#COROA = pygame.image.load('assets/coroa.png')
+COROA = pygame.transform.scale(pygame.image.load('assets/coroa.png'), (45, 25))
