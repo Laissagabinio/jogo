@@ -73,20 +73,8 @@ class Tabuleiro:
                 else:
                     self.esquerda_vermelho -= 1
 
-    def movimentos_validos(self, peca):
-        direita = peca.coluna + 1
-        esquerda = peca.coluna - 1
-        fileira = peca.fileira
-        movimentos = {}
-
-        if peca.cor == BRANCO or peca.dama:
-            movimentos.update(self.mover_esquerda(fileira -1, max(fileira-3, -1), -1, peca.cor, esquerda))
-            movimentos.update(self.mover_direita(fileira -1, max(fileira-3, -1), -1, peca.cor, direita))
-        if peca.cor == VERMELHO or peca.dama:
-            movimentos.update(self.mover_esquerda(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, esquerda))
-            movimentos.update(self.mover_direita(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, direita))
     
-        return movimentos
+    
 
     def mover_direita(self, começo, fim, passo, cor, direita, pular = []):
         movimentos = {}
@@ -156,7 +144,20 @@ class Tabuleiro:
         
         return movimentos
 
-        
+    def movimentos_validos(self, peca):
+        direita = peca.coluna + 1
+        esquerda = peca.coluna - 1
+        fileira = peca.fileira
+        movimentos = {}
+
+        if peca.cor == BRANCO or peca.dama:
+            movimentos.update(self.mover_esquerda(fileira -1, max(fileira-3, -1), -1, peca.cor, esquerda))
+            movimentos.update(self.mover_direita(fileira -1, max(fileira-3, -1), -1, peca.cor, direita))
+        if peca.cor == VERMELHO or peca.dama:
+            movimentos.update(self.mover_esquerda(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, esquerda))
+            movimentos.update(self.mover_direita(fileira +1, min(fileira+3, FILEIRAS), 1, peca.cor, direita))
+    
+        return movimentos   
 
 
            

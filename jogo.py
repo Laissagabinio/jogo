@@ -44,23 +44,27 @@ class Jogo:
             # depois eu troco esse circulo por alguma coisa mais bonita
             pygame.draw.circle(self.janela, BRANCO, (coluna * TAMANHO_CASAS + TAMANHO_CASAS//2, fileira * TAMANHO_CASAS + TAMANHO_CASAS//2), 20)
 
+    def mudar_vez(self):
+        self.movimentos_validos = {}
+        if self.vez == BRANCO:
+            self.vez == VERMELHO
+        else:
+            self.vez == BRANCO
+
+
     def mover(self, fileira, coluna):
         peca = self.tabuleiro.get_peca(fileira, coluna)
         if self.selecionado and peca == 0 and (fileira, coluna) in self.movimentos_validos:
             self.tabuleiro.mover(self.selecionado, fileira, coluna)
             pular = self.movimentos_validos[(fileira, coluna)]
+        
 
             if pular:
                 self.tabuleiro.deletar_peca(pular)
-            self.mudar_vez()
+            
         else:
             return False
 
         return True
     
-    def mudar_vez(self):
-        self.movimentos_validos = {}
-        if self.vez == BRANCO:
-            self.vez = VERMELHO
-        else:
-            self.vez = BRANCO
+   

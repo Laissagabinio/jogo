@@ -3,7 +3,7 @@ from .constantes import PRETO, BRANCO, VERMELHO, FILEIRAS, COLUNAS, TAMANHO_CASA
 
 
 class Peca:
-    def __init__(self, coluna, fileira, cor):
+    def __init__(self, fileira, coluna, cor):
         self.coluna = coluna
         self.fileira = fileira
         self.cor = cor 
@@ -17,8 +17,8 @@ class Peca:
         self.dama = True
         
     def posição(self):
-        self.x = TAMANHO_CASAS * self.fileira + TAMANHO_CASAS // 2
-        self.y = TAMANHO_CASAS * self.coluna + TAMANHO_CASAS // 2
+        self.y = TAMANHO_CASAS * self.fileira + TAMANHO_CASAS // 2
+        self.x = TAMANHO_CASAS * self.coluna + TAMANHO_CASAS // 2
 
     def desenhar(self, janela):
         # tem outra função igual no tabuleiro, quando eu chamo ela no inicio ele desenha o tabuleiro e as peças ao mesmo tempo
