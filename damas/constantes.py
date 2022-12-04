@@ -20,5 +20,6 @@ MARROM = (92,64,51)
 matriz = []
 
 # imagens
-#COROA = pygame.image.load('assets/coroa.png')
+PECA_BRANCA = pygame.transform.scale(pygame.image.load('assets/peca_branca.png'),(70, 70))
+PECA_VERMELHA = pygame.transform.scale(pygame.image.load('assets/peca_vermelha.png'),(70, 70))
 COROA = pygame.transform.scale(pygame.image.load('assets/coroa.png'), (45, 25))

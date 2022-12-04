@@ -28,7 +28,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 janela_aberta = False
-				
+
+            if jogo.mostrar_vencedor() != None:
+                print(jogo.mostrar_vencedor())
+                janela_aberta = False
+
             if event.type == pygame.MOUSEBUTTONDOWN:
 				#preguiça de fazer essa parte 
                 pass
@@ -38,6 +42,7 @@ def main():
 				
 				
         jogo.update()      
+        #jogo.mostrar_vencedor()
 
     pygame.quit()
 

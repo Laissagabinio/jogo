@@ -1,5 +1,5 @@
 import pygame
-from .constantes import PRETO, BRANCO, VERMELHO, FILEIRAS, COLUNAS, TAMANHO_CASAS, COROA
+from .constantes import PRETO, BRANCO, VERMELHO, FILEIRAS, COLUNAS, TAMANHO_CASAS, COROA, PECA_BRANCA, PECA_VERMELHA
 
 
 class Peca:
@@ -18,7 +18,11 @@ class Peca:
 
     def desenhar(self, janela):
         # tem outra função igual no tabuleiro, quando eu chamo ela no inicio ele desenha o tabuleiro e as peças ao mesmo tempo
-        pygame.draw.circle(janela, self.cor, (self.x, self.y), 30, 0)
+        #pygame.draw.circle(janela, self.cor, (self.x, self.y), 30, 0)
+        if self.cor == BRANCO:
+            janela.blit(PECA_BRANCA,(self.x - PECA_BRANCA.get_width()//2, self.y - PECA_BRANCA.get_height()//2)) 
+        elif self.cor == VERMELHO:
+            janela.blit(PECA_VERMELHA,(self.x - PECA_VERMELHA.get_width()//2, self.y - PECA_VERMELHA.get_height()//2))
         if self.dama:
             janela.blit(COROA, (self.x - COROA.get_width()//2, self.y - COROA.get_height()//2))
 

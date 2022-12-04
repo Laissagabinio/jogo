@@ -16,6 +16,12 @@ class Tabuleiro:
     def desenhar_quadrados(self, janela):
         janela.fill(PRETO) 
         pygame.draw.rect(janela, CINZA, pygame.Rect(720, 0, 240, 960)) 
+        tamanho_texto = 22
+        fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
+
+        turno = fonte.render('Turno: ', True, (PRETO))
+        janela.blit(turno, (730, 500))
+        
          
         for fileira in range(FILEIRAS):
             #esse fileira%2 serve pra fazer dois tipos de padrões,
@@ -123,7 +129,7 @@ class Tabuleiro:
         movimentos = {}
         ultimo = []
         for f in range(começo, fim, passo):
-            if esquerda < 0:
+            if esquerda != 0 and esquerda < 0:
                 break
             
             atual = self.tabuleiro[f][esquerda]

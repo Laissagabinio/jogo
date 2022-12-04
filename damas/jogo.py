@@ -12,9 +12,10 @@ class Jogo:
              
     def update(self):
         self.tabuleiro.desenhar(self.janela)
-        self.desenhar_possibilidades(self.movimentos_validos)
+        self.desenhar_possibilidades(self.movimentos_validos)   
         pygame.display.update()
-    
+        #self.texto_mudar_vez(self.janela)
+
     def _iniciar(self):
         self.selecionado = None
         self.tabuleiro = Tabuleiro()      
@@ -69,6 +70,45 @@ class Jogo:
             self.vez = VERMELHO
         else:
             self.vez = BRANCO
+
+    def texto_mudar_vez(self, janela):
+        tamanho_texto = 18
+        fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
+        if self.vez == BRANCO:
+            self.vez = VERMELHO
+            turno_vermelho = fonte.render('Vermelho', True, (VERMELHO))
+            janela.blit(turno_vermelho, (820, 500))
+            #pygame.display.update()
+        else:
+            self.vez = BRANCO
+            turno_branco = fonte.render('Branco', True, (BRANCO))
+            janela.blit(turno_branco, (820, 500))
+            #pygame.display.update() 
+
+    def mostrar_vencedor(self):
+        if self.tabuleiro.branco_peças <= 0:
+            return VERMELHO
+        elif self.tabuleiro.vermelho_peças <= 0:
+            return BRANCO
+        elif self.tabuleiro.branco_peças == 1 and self.tabuleiro.branco_peças == 1:
+            return 'Empate'
+        return None
+
+    '''def mostrar_vencedor(self, janela):
+        tamanho_texto = 18
+        fonte = pygame.font.Font('assets/Copperplate_Gothic_Light.ttf', tamanho_texto)
+        
+        if self.tabuleiro.vermelho_peças <= 0:
+            ganhador = fonte.render('Branco ganhou esse carai', True, (VERMELHO))
+            janela.blit(ganhador, (730, 200))
+            pygame.display.update()
+        elif self.tabuleiro.branco_peças <= 0:
+            ganhador = fonte.render('Vermelho ganhou esse carai', True, (VERMELHO))
+            janela.blit(ganhador, (730, 200))
+            pygame.display.update()
+        #janela.blit(ganhador, (730, 200))
+        #pygame.display.update()'''
+
 
     '''def deletar_peca(self, pecas):
         for peca in pecas:
