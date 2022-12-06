@@ -112,9 +112,9 @@ class Tabuleiro:
                         fileira = max(f-3, 0)
                     else:
                         fileira = min(f+3, FILEIRAS)
-                        
-                    movimentos.update(self._mover_direita(f+passo, fileira, passo, cor, direita-1, pular = ultimo))
-                    movimentos.update(self._mover_esquerda(f+passo, fileira, passo, cor, direita+1, pular = ultimo))
+                              
+                    movimentos.update(self._mover_direita(f+passo, fileira, passo, cor, direita +1, pular = ultimo))
+                    movimentos.update(self._mover_esquerda(f+passo, fileira, passo, cor, direita -1, pular = ultimo))
                 break
             elif atual.cor == cor:
                 break
@@ -147,8 +147,8 @@ class Tabuleiro:
                     else:
                         fileira = min(f+3, FILEIRAS)
 
-                    movimentos.update(self._mover_esquerda(f+passo, fileira, passo, cor, esquerda -1, pular = ultimo))
                     movimentos.update(self._mover_direita(f+passo, fileira, passo, cor, esquerda +1, pular = ultimo))
+                    movimentos.update(self._mover_esquerda(f+passo, fileira, passo, cor, esquerda -1, pular = ultimo))
                 break
             elif atual.cor == cor:
                 break
